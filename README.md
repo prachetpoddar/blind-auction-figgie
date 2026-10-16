@@ -63,3 +63,7 @@ Every run is seeded, so the same command gives the same numbers.
 ## How this was built
 
 I designed the game, its rules and the experiments, and made the design calls at each stage. Much of the code was written with Claude, an AI assistant, working from my direction.
+
+## Licence
+
+MIT. See [`LICENSE`](LICENSE).

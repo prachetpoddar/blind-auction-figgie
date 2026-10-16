@@ -6,7 +6,7 @@ This repository holds the playable game, the simulators that test its rules with
 
 ## Play
 
-The game is a single HTML page in [`docs/index.html`](docs/index.html). With GitHub Pages turned on for the `docs/` folder it plays in the browser against three bots. Saved games, the rating and the leaderboard need the page's original hosting and switch themselves off here; the game, the bots and the data desk all work.
+**[Play it here](https://prachetpoddar.github.io/blind-auction-figgie/)** against three bots. The game is a single HTML page, [`docs/index.html`](docs/index.html), served by GitHub Pages. Saved games, the rating and the leaderboard need the page's original hosting and switch themselves off here; the game, the bots and the data desk all work.
 
 ## The rules in brief
 

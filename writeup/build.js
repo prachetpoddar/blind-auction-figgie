@@ -3,7 +3,7 @@
 const fs = require("fs");
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, ShadingType,
-  AlignmentType, LevelFormat, BorderStyle, ImageRun, Footer, PageNumber,
+  AlignmentType, LevelFormat, BorderStyle, ImageRun, Footer, PageNumber, ExternalHyperlink,
 } = require("docx");
 
 const A = JSON.parse(fs.readFileSync(__dirname + "/../results/results.json")).results;
@@ -29,6 +29,8 @@ const p = (text, opts = {}) => new Paragraph({ spacing: { after: 110, line: 272 
 const b = t => new TextRun({ text: t, font: FONT, size: 21, bold: true });
 const i = t => new TextRun({ text: t, font: FONT, size: 21, italics: true });
 const mono = t => new TextRun({ text: t, font: "Consolas", size: 18 });
+const link = (text, url) => new ExternalHyperlink({ link: url, children: [new TextRun({ text, font: FONT, size: 21, color: "1F5FAD", underline: {} })] });
+const REPO = "https://github.com/prachetpoddar/blind-auction-figgie", PLAY = "https://prachetpoddar.github.io/blind-auction-figgie/";
 const h = text => new Paragraph({ spacing: { before: 240, after: 90 }, keepNext: true, keepLines: true,
   children: [new TextRun({ text, font: FONT, size: 26, bold: true, color: INK })] });
 const h2 = (text, brk = false) => new Paragraph({ spacing: { before: 150, after: 60 }, keepNext: true, keepLines: true, pageBreakBefore: brk,
@@ -66,7 +68,7 @@ const children = [
 
   h("1. Summary"),
   p("Figgie is a card game about trading when the deck is uncertain. All of its information is free: you see your own hand and learn the rest from other players' trades. Real traders often pay for information before they know what it will say, and the act of paying can give away their position. Blind Auction Figgie adds that decision. Before each trading window, every player can buy information at a sealed-bid data desk, and everyone sees who bought what and at what price, but not what the buyer saw."),
-  p(["I built it as a playable web game against three bots, with a live market, saved games, a rating and a leaderboard. I then tested the rules with headless simulations that run the game's own bot code, about ", b(`${TOTAL.toLocaleString("en-US")} rounds`), " in a seeded, reproducible series. The design changed three times because of what the tests showed. An independent review of the simulator found one bug that changed the final balance. I fixed it and re-ran the series, and every number below comes from the fixed code unless marked otherwise."]),
+  p(["I built it as a playable web game against three bots, with a live market, saved games, a rating and a leaderboard. You can play it at ", link("prachetpoddar.github.io/blind-auction-figgie", PLAY), ", and the code, results and tests are at ", link("github.com/prachetpoddar/blind-auction-figgie", REPO), ". I then tested the rules with headless simulations that run the game's own bot code, about ", b(`${TOTAL.toLocaleString("en-US")} rounds`), " in a seeded, reproducible series. The design changed three times because of what the tests showed. An independent review of the simulator found one bug that changed the final balance. I fixed it and re-ran the series, and every number below comes from the fixed code unless marked otherwise."]),
   p([b("Result. "), `In the final rules, buying information pays, but nobody can buy their way to a large edge. Across ${nOf(B, V19, "Equilibrium")} rounds per style in mixed tables, the heaviest buyer (Info-hungry) finishes ${pair(V19, "Equilibrium", "Info-hungry").replace("−", "")} chips a round ahead of the value-based bot (Equilibrium) at the same tables, and Equilibrium finishes ${pair(V19, "Cautious", "Equilibrium").replace("−", "")} ahead of a bot that never buys. Three styles each finish top in ${topRange()} of their rounds.`]),
 
   h("2. The game"),
@@ -170,7 +172,7 @@ const children = [
   bullet("Human play so far is my own. The next step is a playtest with other people, for which the game already saves every round, bid and trade."),
 
   h("7. Reproducing the results"),
-  p([mono("python3 sim/run_series.py"), run(" runs rules v3 to V18, and "), mono("SERIES=v19 OUT=results_v19.json python3 sim/run_series.py"), run(" runs the final rules, about 25 minutes each on two cores. The simulators load the game's own bot code. "), mono("node tools/test_reveal.js"), run(" is the regression test for the peek bug, and six browser test suites check the game at phone and desktop widths. The playable game, code and logs are available on request.")]),
+  p([mono("python3 sim/run_series.py"), run(" runs rules v3 to V18, and "), mono("SERIES=v19 OUT=results_v19.json python3 sim/run_series.py"), run(" runs the final rules, about 25 minutes each on two cores. The simulators load the game's own bot code. "), mono("node tests/test_reveal.js"), run(" is the regression test for the peek bug, and "), mono("python3 sim/check_reproduction.py v19_final mixed"), run(" reruns one stored result and confirms it matches. During development six browser test suites also checked the game at phone and desktop widths. Everything is in the repository at "), link("github.com/prachetpoddar/blind-auction-figgie", REPO), run(".")]),
 ];
 
 const doc = new Document({

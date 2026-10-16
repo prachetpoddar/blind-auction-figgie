@@ -14,7 +14,7 @@
   --f12:12px;--f14:14px;--f16:16px;--f20:20px;--f25:25px;--f31:31px;--f39:39px;--f49:49px;color-scheme:dark}
 html{background:var(--room)}
 /* the room: the same wool, faint, on the dark ground around the table */
-body,.overlay{background:var(--t-baize) 0 0/320px 320px,var(--t-baize) 161px 97px/320px 320px,var(--room);background-blend-mode:overlay,overlay,normal}
+body,.overlay{background:var(--t-baize) 0 0/320px 320px,var(--t-baize) 161px 97px/320px 320px,radial-gradient(ellipse 80% 70% at 50% 35%,#16291f 0%,var(--room) 60%,#0a1511 100%);background-blend-mode:overlay,soft-light,normal}
 body{min-height:100vh}
 body{margin:0;padding:0!important;color:var(--chalk);font-family:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;font-size:var(--f16);font-weight:400;line-height:1.45;-webkit-font-smoothing:antialiased;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 *{box-sizing:border-box}
@@ -635,6 +635,11 @@ body.has-frame .seat.me .disc.you{box-shadow:0 0 0 2px var(--side),0 0 0 4px var
 .wn .tgb span{color:inherit;font-size:inherit;line-height:1}
 .slot .mcs{gap:5px;font-size:var(--f12)}
 .slot .mc{gap:1px}
+
+/* suede: the table rim, seat plates and the panel rail share one soft grain over the dark side colour */
+.table{background:var(--t-baize) 0 0/160px 160px,linear-gradient(#0d1a14,#081210);background-blend-mode:soft-light,normal}
+.seat{background:var(--t-baize) 0 0/160px 160px,var(--side);background-blend-mode:soft-light,normal}
+@media (min-width:901px){.panel{background:var(--t-baize) 0 0/160px 160px,linear-gradient(#0d1a14,#081210);background-blend-mode:soft-light,normal}}
 
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>

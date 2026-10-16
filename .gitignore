@@ -1,0 +1,6 @@
+tests/shots/
+results/_*.json
+src/tools/out/
+__pycache__/
+node_modules/
+*.docx
